@@ -151,7 +151,69 @@ describe("complexOperation - Unit Tests", () => {
   });
 
   describe("sortArrayOfObjectsByKey", () => {
-    it("first test for sortArrayOfObjectsByKey", () => {});
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(complexOperations.sortArrayOfObjectsByKey()).toMatch(
+        "The first param should be an array"
+      );
+    });
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey("string", undefined)
+      ).toMatch("The first param should be an array");
+    });
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [{ instrument: "guitar" }],
+          undefined
+        )
+      ).toMatch("The second param should be an string");
+    });
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey([{ instrument: "guitar" }])
+      ).toMatch("The second param should be an string");
+    });
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [
+            { instrument: "guitar" },
+            { instrument: "bass" },
+            { instrument: "drum" },
+          ],
+          "body"
+        )
+      ).toMatch("Some elements in the array does not have the body property");
+    });
+    it("first test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [
+            { instrument: "guitar" },
+            { instrument: "bass" },
+            { instrument: "drum" },
+          ],
+          " "
+        )
+      ).toMatch("Some elements in the array does not have the   property");
+    });
+    it("sixth test for sortArrayOfObjectsByKey", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [
+            { instrument: "guitar" },
+            { instrument: "bass" },
+            { instrument: "drum" },
+          ],
+          "instrument"
+        )
+      ).toEqual([
+        { instrument: "bass" },
+        { instrument: "drum" },
+        { instrument: "guitar" },
+      ]);
+    });
   });
 
   describe("numberOfOddAndEvenNumbers", () => {
