@@ -86,12 +86,12 @@ describe("complexOperation - Unit Tests", () => {
   });
 
   describe("sumGratherThan", () => {
-    it("if arguments are not defined show the correct mssg", () => {
+    it("if params are not defined show the correct mssg", () => {
       expect(complexOperations.sumGratherThan()).toMatch(
         "The params should be numbers"
       );
     });
-    it("if arguments are not numbers show the correct mssg", () => {
+    it("if params are not numbers show the correct mssg", () => {
       expect(complexOperations.sumGratherThan("string", {}, undefined)).toMatch(
         "The params should be numbers"
       );
@@ -101,7 +101,7 @@ describe("complexOperation - Unit Tests", () => {
         "600 is grather than 300"
       );
     });
-    it("fourth test for sumGratherThan", () => {
+    it("total sum to be less than number3", () => {
       expect(complexOperations.sumGratherThan(45, 45, 100)).toBe(
         "90 is less than 100"
       );
@@ -151,17 +151,17 @@ describe("complexOperation - Unit Tests", () => {
   });
 
   describe("sortArrayOfObjectsByKey", () => {
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("if params is not defined show the proper mssg", () => {
       expect(complexOperations.sortArrayOfObjectsByKey()).toMatch(
         "The first param should be an array"
       );
     });
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("if first param is not an array show proper mssg", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey("string", undefined)
       ).toMatch("The first param should be an array");
     });
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("if second param is not a string show proper mssg", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey(
           [{ instrument: "guitar" }],
@@ -169,12 +169,12 @@ describe("complexOperation - Unit Tests", () => {
         )
       ).toMatch("The second param should be an string");
     });
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("if second param is not type string show proper mssg", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey([{ instrument: "guitar" }])
       ).toMatch("The second param should be an string");
     });
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("when missing property show the proper mssg", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey(
           [
@@ -186,7 +186,7 @@ describe("complexOperation - Unit Tests", () => {
         )
       ).toMatch("Some elements in the array does not have the body property");
     });
-    it("first test for sortArrayOfObjectsByKey", () => {
+    it("when property is empty show the proper mssg", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey(
           [
@@ -198,7 +198,7 @@ describe("complexOperation - Unit Tests", () => {
         )
       ).toMatch("Some elements in the array does not have the   property");
     });
-    it("sixth test for sortArrayOfObjectsByKey", () => {
+    it("return the correct array ", () => {
       expect(
         complexOperations.sortArrayOfObjectsByKey(
           [
@@ -214,9 +214,72 @@ describe("complexOperation - Unit Tests", () => {
         { instrument: "guitar" },
       ]);
     });
+    it("if any element doesn't have the property show the proper mssg ", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [
+            { instrument: "guitar" },
+            { instrument: "bass" },
+            { vehicle: "car" },
+          ],
+          "instrument"
+        )
+      ).toMatch(
+        "Some elements in the array does not have the instrument property"
+      );
+    });
   });
 
   describe("numberOfOddAndEvenNumbers", () => {
-    it("first test for numberOfOddAndEvenNumbers", () => {});
+    it("first test for numberOfOddAndEvenNumbers", () => {
+      expect(complexOperations.numberOfOddAndEvenNumbers()).toMatch(
+        "The param should be an array"
+      );
+    });
+    it("second test for numberOfOddAndEvenNumbers", () => {
+      expect(complexOperations.numberOfOddAndEvenNumbers("string")).toMatch(
+        "The param should be an array"
+      );
+    });
+    it("third test for numberOfOddAndEvenNumbers", () => {
+      expect(
+        complexOperations.numberOfOddAndEvenNumbers([1, { name: "rodrigo" }])
+      ).toMatch("The array should have only numbers");
+    });
+    it("fourth test for numberOfOddAndEvenNumbers", () => {
+      expect(
+        complexOperations.numberOfOddAndEvenNumbers([undefined, "string"])
+      ).toMatch("The array should have only numbers");
+    });
+    it("fifth test for numberOfOddAndEvenNumbers", () => {
+      expect(complexOperations.numberOfOddAndEvenNumbers([])).toStrictEqual({
+        even: 0,
+        odd: 0,
+      });
+    });
+    it("sixth test for numberOfOddAndEvenNumbers", () => {
+      expect(
+        complexOperations.numberOfOddAndEvenNumbers([33.33, 46.46])
+      ).toStrictEqual({
+        even: 0,
+        odd: 2,
+      });
+    });
+    it("seventh test for numberOfOddAndEvenNumbers", () => {
+      expect(
+        complexOperations.numberOfOddAndEvenNumbers([22, 44, 66, 88])
+      ).toStrictEqual({
+        even: 4,
+        odd: 0,
+      });
+    });
+    it("eighth test for numberOfOddAndEvenNumbers", () => {
+      expect(complexOperations.numberOfOddAndEvenNumbers([3, 8])).toStrictEqual(
+        {
+          even: 1,
+          odd: 1,
+        }
+      );
+    });
   });
 });
