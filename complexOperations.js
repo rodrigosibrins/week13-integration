@@ -13,22 +13,22 @@ import {
   sortArrayByKey,
   getOddNumbersFromArray,
   getEvenNumbersFromArray,
-} from './basicOperations';
+} from "./basicOperations";
 
 /**
  * This function validates emails
  * @param {string} email
  * @returns {string}
-*/
+ */
 export const checkEmail = (email) => {
   if (!email || !isString(email)) {
-    return 'The email should be an string';
+    return "The email should be an string";
   }
   const isValidEmail = validateEmail(email);
   if (!isValidEmail) {
-    return 'The email is invalid';
+    return "The email is invalid";
   }
-  return 'The email is valid';
+  return "The email is valid";
 };
 
 // console.log(checkEmail());
@@ -43,28 +43,28 @@ export const checkEmail = (email) => {
  * @param {number} number1
  * @param {number} number2 - It's not necessary for circle
  * @returns {number|string}
-*/
+ */
 export const calculateArea = (figure, number1, number2 = 0) => {
   if (!figure || !isSupportedFigure(figure)) {
     return `${figure} is not supported`;
   }
   if (!isNumber(number1) || !isNumber(number2)) {
-    return 'number1 and number2 should be numbers';
+    return "number1 and number2 should be numbers";
   }
-  switch(figure.toLowerCase()) {
-    case 'rectangle':
-    case 'square':
+  switch (figure.toLowerCase()) {
+    case "rectangle":
+    case "square":
       return multip(number1, number2);
-    case 'triangle':
+    case "triangle":
       return division(multip(number1, number2), 2);
-    case 'circle':
+    case "circle":
       // For circle we use only the number1 as radio
       const radio = number1;
       return Math.PI * exponent(radio, 2);
     default:
       return `${figure} is not supported`;
   }
-}
+};
 
 // console.log(calculateArea());
 // console.log(calculateArea('square'));
@@ -82,17 +82,17 @@ export const calculateArea = (figure, number1, number2 = 0) => {
  * @param {number} number2
  * @param {number} number3
  * @returns {string}
-*/
+ */
 export const sumGratherThan = (number1, number2, number3) => {
   if (!isNumber(number1) || !isNumber(number2) || !isNumber(number3)) {
-    return 'The params should be numbers';
+    return "The params should be numbers";
   }
   const sumResult = sum(number1, number2);
   if (sumResult > number3) {
     return `${sumResult} is grather than ${number3}`;
   }
   return `${sumResult} is less than ${number3}`;
-}
+};
 
 // console.log(sumGratherThan());
 // console.log(sumGratherThan([], undefined));
@@ -104,17 +104,17 @@ export const sumGratherThan = (number1, number2, number3) => {
  * @param {Array} array1
  * @param {Array} array2
  * @returns {Array|string}
-*/
+ */
 export const intersectionBetweenArrays = (array1, array2) => {
   if (!isArray(array1) || !isArray(array2)) {
-    return 'The params should be arrays';
+    return "The params should be arrays";
   }
   const intersection = arrayIntersection(array1, array2);
   if (intersection.length === 0) {
-    return 'There are not matching elements';
+    return "There are not matching elements";
   }
   return intersection;
-}
+};
 
 // console.log(intersectionBetweenArrays())
 // console.log(intersectionBetweenArrays([1,2,3]));
@@ -127,19 +127,19 @@ export const intersectionBetweenArrays = (array1, array2) => {
  * @param {Array} array - This array should be an array of objects
  * @param {string} key
  * @returns {Array} - Sorted array
-*/
+ */
 export const sortArrayOfObjectsByKey = (array, key) => {
   if (!isArray(array)) {
-    return 'The first param should be an array';
+    return "The first param should be an array";
   }
   if (!key || !isString(key)) {
-    return 'The second param should be an string';
+    return "The second param should be an string";
   }
   if (!arrayElementsAreObjectWithKey(array, key)) {
     return `Some elements in the array does not have the ${key} property`;
   }
   return sortArrayByKey(array, key);
-}
+};
 
 // console.log(sortArrayOfObjectsByKey([{ name: 'Guille' }, { name: 'Rodrigo' }, { name: 'David' }], 'name'));
 // console.log(sortArrayOfObjectsByKey(undefined, 'name'));
@@ -151,10 +151,10 @@ export const sortArrayOfObjectsByKey = (array, key) => {
  * Should return the number of odd and even numbers
  * @param {Array} array
  * @returns {Object|string} - odd and even numbers
-*/
+ */
 export const numberOfOddAndEvenNumbers = (array) => {
   if (!isArray(array)) {
-    return 'The param should be an array';
+    return "The param should be an array";
   }
   const elementsAreNumbers = array.every(isNumber);
   if (!elementsAreNumbers) {
@@ -162,9 +162,9 @@ export const numberOfOddAndEvenNumbers = (array) => {
   }
   return {
     odd: getOddNumbersFromArray(array).length,
-    even: getEvenNumbersFromArray(array).length
-  }
-}
+    even: getEvenNumbersFromArray(array).length,
+  };
+};
 
 // console.log(numberOfOddAndEvenNumbers([1, 4, 5, 8, 9]));
 // console.log(numberOfOddAndEvenNumbers([1.3, 4.2]));
