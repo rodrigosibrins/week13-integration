@@ -65,6 +65,9 @@ describe("complexOperation - Unit Tests", () => {
     it("square area to be 4", () => {
       expect(complexOperations.calculateArea("square", 2, 2)).toBe(4);
     });
+    it("square area to be false", () => {
+      expect(complexOperations.calculateArea("square", 2)).toBeFalsy();
+    });
     it("triangle area to be 7,5", () => {
       expect(complexOperations.calculateArea("triangle", 5, 3)).toBe(7.5);
     });
@@ -83,11 +86,68 @@ describe("complexOperation - Unit Tests", () => {
   });
 
   describe("sumGratherThan", () => {
-    it("first test for sumGratherThan", () => {});
+    it("if arguments are not defined show the correct mssg", () => {
+      expect(complexOperations.sumGratherThan()).toMatch(
+        "The params should be numbers"
+      );
+    });
+    it("if arguments are not numbers show the correct mssg", () => {
+      expect(complexOperations.sumGratherThan("string", {}, undefined)).toMatch(
+        "The params should be numbers"
+      );
+    });
+    it("total sum to be greater than number3", () => {
+      expect(complexOperations.sumGratherThan(400, 200, 300)).toBe(
+        "600 is grather than 300"
+      );
+    });
+    it("fourth test for sumGratherThan", () => {
+      expect(complexOperations.sumGratherThan(45, 45, 100)).toBe(
+        "90 is less than 100"
+      );
+    });
   });
 
   describe("intersectionBetweenArrays", () => {
-    it("first test for intersectionBetweenArrays", () => {});
+    it("if params not defined show the correct mssg", () => {
+      expect(complexOperations.intersectionBetweenArrays()).toMatch(
+        "The params should be arrays"
+      );
+    });
+    it("if params not arrays show the correct mssg", () => {
+      expect(
+        complexOperations.intersectionBetweenArrays("string", 4234)
+      ).toMatch("The params should be arrays");
+    });
+    it("if there is not two arrays show the proper mssg", () => {
+      expect(
+        complexOperations.intersectionBetweenArrays(["car", "ball", "bed"])
+      ).toMatch("The params should be arrays");
+    });
+    it("return car", () => {
+      expect(
+        complexOperations.intersectionBetweenArrays(
+          ["car", "ball", "bed"],
+          ["car"]
+        )
+      ).toStrictEqual(["car"]);
+    });
+    it("if there is no matching elements show proper mssg", () => {
+      expect(
+        complexOperations.intersectionBetweenArrays(
+          ["car", "ball", "bed"],
+          ["rocket"]
+        )
+      ).toMatch("There are not matching elements");
+    });
+    it("return ball", () => {
+      expect(
+        complexOperations.intersectionBetweenArrays(
+          ["car", "ball", "bed"],
+          ["ball", 250]
+        )
+      ).toStrictEqual(["ball"]);
+    });
   });
 
   describe("sortArrayOfObjectsByKey", () => {
