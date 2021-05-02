@@ -1,7 +1,8 @@
 import "jest";
 import * as complexOperations from "./complexOperations";
+import * as basicOperations from "./basicOperations";
 
-describe("complexOperation - Unit Tests", () => {
+describe("complexOperation - Integration Tests", () => {
   describe("checkEmail", () => {
     it("if email is undefined show the correct mssg", () => {
       expect(complexOperations.checkEmail()).toBe(
@@ -30,6 +31,31 @@ describe("complexOperation - Unit Tests", () => {
       expect(complexOperations.checkEmail("rodrigo@gmail.com")).toBe(
         "The email is valid"
       );
+    });
+    describe("checkEmail mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking a mail is not a string", () => {
+        jest.spyOn(basicOperations, "isString").mockReturnValue(false);
+        expect(complexOperations.checkEmail("emailmocked")).toBe(
+          "The email should be an string"
+        );
+      });
+      it("mocking a null email", () => {
+        jest.spyOn(basicOperations, "validateEmail").mockReturnValue(null);
+        expect(complexOperations.checkEmail("emailmocked")).toBe(
+          "The email is invalid"
+        );
+      });
+      it("mocking valid email", () => {
+        jest
+          .spyOn(basicOperations, "validateEmail")
+          .mockReturnValue("validmail01@gmail.com");
+        expect(complexOperations.checkEmail("emailmocked")).toBe(
+          "The email is valid"
+        );
+      });
     });
   });
 
@@ -83,6 +109,40 @@ describe("complexOperation - Unit Tests", () => {
         0.5
       );
     });
+    describe("calculateArea mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking multiplication with square", () => {
+        jest.spyOn(basicOperations, "multip").mockReturnValue(7);
+        expect(complexOperations.calculateArea("square", 0, 0)).toBe(7);
+      });
+      it("mocking multiplication with rectangle", () => {
+        jest.spyOn(basicOperations, "multip").mockReturnValue(8);
+        expect(complexOperations.calculateArea("rectangle", 0, 0)).toBe(8);
+      });
+      it("mocking division with triangle", () => {
+        jest.spyOn(basicOperations, "division").mockReturnValue(103.2);
+        expect(complexOperations.calculateArea("triangle", 0, 0)).toBeCloseTo(
+          103.2
+        );
+      });
+      it("mocking the exponent of the circle", () => {
+        jest.spyOn(basicOperations, "exponent").mockReturnValue(6);
+        expect(complexOperations.calculateArea("circle", 0, 0)).toBeCloseTo(
+          18.84,
+          0.5
+        );
+      });
+      it("mocking default figure", () => {
+        jest
+          .spyOn(basicOperations, "isSupportedFigure")
+          .mockReturnValue("default");
+        expect(complexOperations.calculateArea("default", 0, 0)).toBe(
+          "default is not supported"
+        );
+      });
+    });
   });
 
   describe("sumGratherThan", () => {
@@ -105,6 +165,29 @@ describe("complexOperation - Unit Tests", () => {
       expect(complexOperations.sumGratherThan(45, 45, 100)).toBe(
         "90 is less than 100"
       );
+    });
+    describe("sumGreaterThan mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking isNumber to be false", () => {
+        jest.spyOn(basicOperations, "isNumber").mockReturnValue(false);
+        expect(complexOperations.sumGratherThan(0, 0, 0)).toBe(
+          "The params should be numbers"
+        );
+      });
+      it("mocking sum 50 to be greater than -10", () => {
+        jest.spyOn(basicOperations, "sum").mockReturnValue("50");
+        expect(complexOperations.sumGratherThan(0, 0, -10)).toBe(
+          "50 is grather than -10"
+        );
+      });
+      it("mocking sum -20 to be less than -19", () => {
+        jest.spyOn(basicOperations, "sum").mockReturnValue("-20");
+        expect(complexOperations.sumGratherThan(0, 0, -19)).toBe(
+          "-20 is less than -19"
+        );
+      });
     });
   });
 
@@ -147,6 +230,40 @@ describe("complexOperation - Unit Tests", () => {
           ["ball", 250]
         )
       ).toStrictEqual(["ball"]);
+    });
+    describe("intersectionBetweenArrays mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking null array", () => {
+        jest.spyOn(basicOperations, "isArray").mockReturnValue(null);
+        expect(complexOperations.intersectionBetweenArrays()).toBe(
+          "The params should be arrays"
+        );
+      });
+      it("mocking undefined array", () => {
+        jest.spyOn(basicOperations, "isArray").mockReturnValue(undefined);
+        expect(complexOperations.intersectionBetweenArrays()).toBe(
+          "The params should be arrays"
+        );
+      });
+      it("mocking function to match", () => {
+        jest
+          .spyOn(basicOperations, "arrayIntersection")
+          .mockReturnValue([6, 7, 8]);
+        expect(
+          complexOperations.intersectionBetweenArrays([], [])
+        ).toStrictEqual([6, 7, 8]);
+      });
+      it("mocking function with no matching elements", () => {
+        jest.spyOn(basicOperations, "arrayIntersection").mockReturnValue([]);
+        expect(
+          complexOperations.intersectionBetweenArrays(
+            ["car", "football", "short"],
+            [10, 20, 30]
+          )
+        ).toBe("There are not matching elements");
+      });
     });
   });
 
@@ -228,6 +345,59 @@ describe("complexOperation - Unit Tests", () => {
         "Some elements in the array does not have the instrument property"
       );
     });
+    describe("sortArrayOfObjectsByKey mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking isArray to be null", () => {
+        jest.spyOn(basicOperations, "isArray").mockReturnValue(null);
+        expect(complexOperations.sortArrayOfObjectsByKey([], "string")).toBe(
+          "The first param should be an array"
+        );
+      });
+      it("mocking isString to be null", () => {
+        jest.spyOn(basicOperations, "isString").mockReturnValue(null);
+        expect(complexOperations.sortArrayOfObjectsByKey([], "string")).toBe(
+          "The second param should be an string"
+        );
+      });
+      it("mocking array to match", () => {
+        jest
+          .spyOn(basicOperations, "sortArrayByKey")
+          .mockReturnValue(
+            [
+              { instrument: "guitar" },
+              { instrument: "bass" },
+              { instrument: "drum" },
+            ],
+            "instrument"
+          );
+        expect(
+          complexOperations.sortArrayOfObjectsByKey([], "instrument")
+        ).toStrictEqual(
+          [
+            { instrument: "guitar" },
+            { instrument: "bass" },
+            { instrument: "drum" },
+          ],
+          "instrument"
+        );
+      });
+      it("mocking missing elements", () => {
+        jest
+          .spyOn(basicOperations, "arrayElementsAreObjectWithKey")
+          .mockReturnValue(undefined);
+        expect(
+          complexOperations.sortArrayOfObjectsByKey([], "instrument")
+        ).toBe(
+          "Some elements in the array does not have the instrument property"
+        );
+      });
+      it("mocking sortArrayByKey to return 0", () => {
+        jest.spyOn(basicOperations, "sortArrayByKey").mockReturnValue(0);
+        expect(complexOperations.sortArrayOfObjectsByKey([], "string")).toBe(0);
+      });
+    });
   });
 
   describe("numberOfOddAndEvenNumbers", () => {
@@ -280,6 +450,41 @@ describe("complexOperation - Unit Tests", () => {
           odd: 1,
         }
       );
+    });
+    describe("numberOfOddAndEvenNumbers mocked", () => {
+      beforeEach(() => {
+        jest.restoreAllMocks();
+      });
+      it("mocking isArray to be false", () => {
+        jest.spyOn(basicOperations, "isArray").mockReturnValue(false);
+        expect(complexOperations.numberOfOddAndEvenNumbers([])).toBe(
+          "The param should be an array"
+        );
+      });
+      it("mocking isNumber to be undefined", () => {
+        jest.spyOn(basicOperations, "isNumber").mockReturnValue(undefined);
+        expect(complexOperations.numberOfOddAndEvenNumbers([1, 2, 3])).toBe(
+          "The array should have only numbers"
+        );
+      });
+      it("mocking getOddNumbersFromArray to have 2 odds", () => {
+        jest
+          .spyOn(basicOperations, "getOddNumbersFromArray")
+          .mockReturnValue([7, 11]);
+        expect(complexOperations.numberOfOddAndEvenNumbers([])).toEqual({
+          odd: 2,
+          even: 0,
+        });
+      });
+      it("mocking getOddNumbersFromArray to have 2 odds", () => {
+        jest
+          .spyOn(basicOperations, "getEvenNumbersFromArray")
+          .mockReturnValue([4, 8]);
+        expect(complexOperations.numberOfOddAndEvenNumbers([])).toEqual({
+          odd: 0,
+          even: 2,
+        });
+      });
     });
   });
 });
