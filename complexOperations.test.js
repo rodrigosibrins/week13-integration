@@ -345,6 +345,22 @@ describe("complexOperation - Integration Tests", () => {
         "Some elements in the array does not have the instrument property"
       );
     });
+    it("Using an array with equal elements", () => {
+      expect(
+        complexOperations.sortArrayOfObjectsByKey(
+          [
+            { instrument: "guitar" },
+            { instrument: "guitar" },
+            { instrument: "guitar" },
+          ],
+          "instrument"
+        )
+      ).toEqual([
+        { instrument: "guitar" },
+        { instrument: "guitar" },
+        { instrument: "guitar" },
+      ]);
+    });
     describe("sortArrayOfObjectsByKey mocked", () => {
       beforeEach(() => {
         jest.restoreAllMocks();
